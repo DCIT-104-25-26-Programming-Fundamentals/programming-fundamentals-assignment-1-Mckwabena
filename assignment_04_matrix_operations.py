@@ -60,3 +60,74 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def print_matrix(matrix):
+    """Prints a 2D list in a formatted grid."""
+    for row in matrix:
+        print("  ".join(f"{val:3d}" for val in row))
+
+
+def transpose(matrix):
+    """Transposes an M x N matrix to N x M."""
+    rows = len(matrix)
+    cols = len(matrix[0])
+    
+    # Create empty N x M matrix
+    transposed = [[0] * rows for _ in range(cols)]
+    
+    for i in range(rows):
+        for j in range(cols):
+            transposed[j][i] = matrix[i][j]
+            
+    return transposed
+
+
+def add_matrices(mat_a, mat_b):
+    """Adds two M x N matrices element-wise."""
+    rows = len(mat_a)
+    cols = len(mat_a[0])
+    
+    result = [[0] * cols for _ in range(rows)]
+    
+    for i in range(rows):
+        for j in range(cols):
+            result[i][j] = mat_a[i][j] + mat_b[i][j]
+            
+    return result
+
+
+def multiply_matrices(mat_a, mat_b):
+    """Multiplies an M x N matrix by an N x P matrix."""
+    rows_a = len(mat_a)
+    cols_a = len(mat_a[0])
+    cols_b = len(mat_b[0])
+    
+    result = [[0] * cols_b for _ in range(rows_a)]
+    
+    for i in range(rows_a):
+        for j in range(cols_b):
+            for k in range(cols_a):
+                result[i][j] += mat_a[i][k] * mat_b[k][j]
+                
+    return result
+
+
+def input_matrix(rows, cols):
+    """Helper to take user input row by row."""
+    matrix = []
+    for i in range(rows):
+        row = list(map(int, input(f"Enter row {i + 1}: ").split()))
+        matrix.append(row)
+    return matrix
+
+
+if __name__ == "__main__":
+    print("--- PART A: Transpose ---")
+    r = int(input("Enter number of rows: "))
+    c = int(input("Enter number of columns: "))
+    mat1 = input_matrix(r, c)
+    
+    print("\nOriginal Matrix:")
+    print_matrix(mat1)
+    
+    print("\nTransposed Matrix:")
+    print_matrix(transpose(mat1))
